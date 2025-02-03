@@ -16,7 +16,7 @@ A TamperMonkey userscript for automating box mod applications in Cube Collector 
 ## Installation
 
 1. Install the [TamperMonkey](https://www.tampermonkey.net/) browser extension
-2. Click [here]([Box%20Mod%20Automation.user.js](https://github.com/Jawny808/Cube-Collector-AFK-script/blob/main/Box%20Mod%20Automation-v1.0.user.js)) to install v1.0 of the script or [here](https://github.com/Jawny808/Cube-Collector-AFK-script/blob/main/Box%20Mod%20Automation-v1.1.user.js))
+2. Click [here](attached_assets/Box%20Mod%20Automation-v1.0.user.js) to install v1.0 of the script or [download v1.1 here](Box%20Mod%20Automation.user.js)
    - Or create a new script in TamperMonkey and copy the contents of `Box Mod Automation.user.js`
 3. Refresh your Cube Collector game page
 
