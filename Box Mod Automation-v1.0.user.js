@@ -74,10 +74,9 @@
 
         // Try multiple possible button selectors
         const possibleButtons = [
-            '.purchasemodbutton',
-            'button:contains("Purchase Modifier")',
-            'button.graybutton',
-            '.boxmodbutton'
+            '.purchasemodbutton.graybutton',
+            'button.purchasemodbutton',
+            'div.purchasemodbutton'
         ];
 
         let modifierButton = null;
@@ -86,8 +85,7 @@
             console.log(`Searching for button with selector: ${selector}, found: ${buttons.length} buttons`);
 
             modifierButton = Array.from(buttons).find(button =>
-                button.textContent.toLowerCase().includes('modifier') ||
-                button.textContent.toLowerCase().includes('mod')
+                button.querySelector('.material-symbols-outlined')?.textContent === 'flare'
             );
 
             if (modifierButton) {
@@ -179,33 +177,49 @@
 
             // Open modifier menu if needed
             if (!document.querySelector('.centerme.boxmodbuyercontainer')) {
+                console.log('Attempting to open modifier menu...');
                 if (!await clickModifierArea()) {
+                    console.error('Failed to open modifier menu');
                     return false;
                 }
             }
 
-            // Find the ++ button using exact ID and class
-            const buttonId = `boxmodincrementtwice${selectedMod.toLowerCase().replace('/', '')}`;
-            const doubleButton = document.querySelector(`#${buttonId}.pbmmiincrement`);
+            // Debugging: Log the exact button we're looking for
+            const buttonId = selectedMod === 'Cubes Unboxed'
+                ? `boxmodincrementtwice${selectedMod.toLowerCase().replace(/[^a-z]/g, '')}`
+                : `boxmodincrementtwice${selectedMod.toLowerCase().replace(/[^a-z]/g, '')}chance`;
+
+            console.log('Looking for ++ button with ID:', buttonId);
+            console.log('Selected Modifier:', selectedMod);
+
+            const doubleButton = document.getElementById(buttonId);
 
             if (!doubleButton) {
+                console.error('Could not find ++ button with ID:', buttonId);
+                console.log('Available ++ buttons:', document.querySelectorAll('.pbmmiincrement').length);
                 showNotification('Error: Could not find modifier button');
                 return false;
             }
 
+            console.log('Found ++ button:', doubleButton);
+
             // Calculate clicks needed (each ++ adds 2)
             const clicksNeeded = Math.ceil(targetValue / 2);
+            console.log(`Need ${clicksNeeded} clicks to reach target value of ${targetValue}`);
 
             for (let i = 0; i < clicksNeeded && isRunning; i++) {
                 doubleButton.click();
                 await new Promise(resolve => setTimeout(resolve, 200));
 
-                const confirmButton = document.querySelector('button[style*="background: rgb(205, 127, 50)"]');
+                const confirmButton = document.querySelector('.purchaseboxmodsconfirm.orangebutton');
                 if (!confirmButton) {
+                    console.error('Could not find confirm button with class .purchaseboxmodsconfirm.orangebutton');
+                    console.log('Available buttons:', document.querySelectorAll('button').length);
                     showNotification('Error: Could not find confirm button');
                     return false;
                 }
 
+                console.log('Found confirm button, clicking...');
                 confirmButton.click();
                 appliedCount++;
 
