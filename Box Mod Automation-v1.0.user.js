@@ -85,7 +85,7 @@
             const buttons = document.querySelectorAll(selector);
             console.log(`Searching for button with selector: ${selector}, found: ${buttons.length} buttons`);
 
-            modifierButton = Array.from(buttons).find(button => 
+            modifierButton = Array.from(buttons).find(button =>
                 button.textContent.toLowerCase().includes('modifier') ||
                 button.textContent.toLowerCase().includes('mod')
             );
