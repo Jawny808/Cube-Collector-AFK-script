@@ -50,7 +50,7 @@ Feel free to fork this repository and submit pull requests for any improvements 
 
 ## Credits
 
-Created by vvaxx
+Created by vvaxx and Jawny
 
 ## License
 
